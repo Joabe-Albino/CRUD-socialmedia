@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="app.js" defer></script>
+    <title>CRUD social media</title>
+</head>
+
+<body>
+    <div>
+        <div class="createPost">
+            <h2>Enviar Post</h2>
+            <form action="#" id="form-post">
+                <input type="text" placeholder="Seu usuário" name = "uusre" hidden>
+                <input type="text" placeholder="Insira o seu post" name="upost">
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+
+        <div class="viewPosts">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Post</th>
+                        <th>Action</th>
+
+                    </tr>
+                </thead>
+                <tbody class="viewContents">
+                    <tr>
+                        <td id="view-user">Joabe</td>
+                        <td id="view-post">My post</td>
+                        <td>
+                            <button type="submit" id="btn-update">Editar</button>
+                            <button type="submit" id="btn-delete">Deletar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
