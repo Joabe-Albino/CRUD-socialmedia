@@ -3,6 +3,7 @@ const $form = document.querySelector("form#form-post");
 
 
 
+
 const mySocialMedia = {
     user: [{
         name: "Joabe"
@@ -51,12 +52,34 @@ const mySocialMedia = {
         console.log(listaAtualizada);
         mySocialMedia.posts = listaAtualizada;
 
+    },
+    updateId(id){
+        const listaAdd = mySocialMedia.posts.filter((postAtual) => {
+            postAtual.id === id;
+            const inputAdd = document.querySelector("input[name=upost]");
+            inputAdd.value = postAtual.content;
+            
+        })
+        
+        
+        $form.insertAdjacentHTML('beforeend',
+            `<button type='button' onclick=clearInput()>Clear</button>`
+        );
     }
 };
 
 
+function clearInput(){
+    const $inputPost = document.querySelector("input[name=upost]");
+    $inputPost.value = "";
 
-//CREATE in HTML
+    const btnUp = document.querySelector("button[type=button]");
+    btnUp.remove();
+}
+
+
+
+// ---------------------------- Function CREATE -----------------------
 
 mySocialMedia.readPosts();
 console.log(mySocialMedia.posts);
@@ -65,10 +88,15 @@ console.log(mySocialMedia.posts);
 $form.addEventListener("submit", (infoForms) => {
     infoForms.preventDefault();
     const $campoCriaPost = document.querySelector('input[name="upost"]');
-
-    //Colocar no html
-    mySocialMedia.addPost({ username: "Joabe", content: $campoCriaPost.value });
-    $campoCriaPost.value = "";
+    if($campoCriaPost.value == ""){
+        alert("Preencha o post antes de enviar");
+        
+    }else{
+        
+            //Colocar no html
+            mySocialMedia.addPost({ username: "Joabe", content: $campoCriaPost.value });
+            $campoCriaPost.value = "";
+    }
 })
 
 
@@ -79,6 +107,30 @@ $form.addEventListener("submit", (infoForms) => {
 
 
 
+// ---------------------------- Function UPDATE -----------------------
+
+// Pegar informação via ID quando clicar
+// trazer informações nos inputs de novo
+// atualizar informações que estão no input com o mesmo id
+
+const $table = document.querySelector("table");
+
+
+$table.addEventListener("click", function(infoTableEdits){
+    const btnUpdate = infoTableEdits.target.classList.contains("btn-update");
+    if(btnUpdate){
+        const trUpdate = infoTableEdits.target.closest('tr');
+        const idUpdate = trUpdate.getAttribute('data-id');
+        
+        mySocialMedia.updateId(idUpdate);
+        
+        
+    }
+     
+    
+});
+
+
 
 
 // ---------------------------- Function DELETE -----------------------
@@ -87,7 +139,6 @@ $form.addEventListener("submit", (infoForms) => {
 // trazer informações nos inputs de novo
 // atualizar informações que estão no input com o mesmo id
 
-const $table = document.querySelector("table");
 $table.addEventListener("click", function (infoTable) {
     const elementoAtual = infoTable.target;
     const btnDelete = infoTable.target.classList.contains("btn-delete");
