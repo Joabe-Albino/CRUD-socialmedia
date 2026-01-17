@@ -1,4 +1,5 @@
 const $form = document.querySelector("form#form-post");
+const $btnSubmit = document.querySelector("button#btnSubmit");
 
 
 
@@ -32,7 +33,6 @@ const mySocialMedia = {
         const $campoViewPost = document.querySelector(".viewContents");
         $campoViewPost.insertAdjacentHTML("afterbegin",
             `<tr data-id="${idInterno}">
-            <td hidden>${Date.now()}</td>
             <td>Joabe</td> 
             <td>${dados.content}</td>
             <td>
@@ -53,49 +53,66 @@ const mySocialMedia = {
         mySocialMedia.posts = listaAtualizada;
 
     },
-    updateId(id){
+    pegarConteudo(id) {
         const listaAdd = mySocialMedia.posts.filter((postAtual) => {
-            postAtual.id === id;
-            const inputAdd = document.querySelector("input[name=upost]");
-            inputAdd.value = postAtual.content;
-            
+            if (postAtual.id === Number(id)) {
+                const inputAdd = document.querySelector("input[name=upost]");
+                const btnSubmit = document.querySelector("button");
+                inputAdd.value = postAtual.content;
+                $btnSubmit.setAttribute("dataUp-id", postAtual.id);
+
+
+            }
+
         })
-        
-        
+
+
+
         $form.insertAdjacentHTML('beforeend',
-            `<button type='button' onclick=clearInput()>Clear</button>`
+            `<button type='button' id='btnUp' onclick=clearInput()>Clear</button>`
         );
+    },
+    updatePost(id, novoConteudo) {
+        const PostUp = mySocialMedia.posts.filter((postAtual) => {
+            if (postAtual.id === Number(id)) {
+                postAtual.content = novoConteudo;
+                $btnSubmit.removeAttribute('dataUp-id');
+
+                const btnUp = document.querySelector("button#btnUp");
+                btnUp.remove();
+            };
+        });
     }
 };
 
-
-function clearInput(){
+function clearInput() {
     const $inputPost = document.querySelector("input[name=upost]");
     $inputPost.value = "";
 
-    const btnUp = document.querySelector("button[type=button]");
+    const btnUp = document.querySelector("button#btnUp");
     btnUp.remove();
 }
 
 
 
-// ---------------------------- Function CREATE -----------------------
 
+// ---------------------------- Function READ -----------------------
 mySocialMedia.readPosts();
 console.log(mySocialMedia.posts);
 
 
+// ---------------------------- Function CREATE -----------------------
 $form.addEventListener("submit", (infoForms) => {
     infoForms.preventDefault();
     const $campoCriaPost = document.querySelector('input[name="upost"]');
-    if($campoCriaPost.value == ""){
+    if ($campoCriaPost.value == "") {
         alert("Preencha o post antes de enviar");
-        
-    }else{
-        
-            //Colocar no html
-            mySocialMedia.addPost({ username: "Joabe", content: $campoCriaPost.value });
-            $campoCriaPost.value = "";
+
+    } else if ($btnSubmit.getAttribute("dataUp-id") == null) {
+
+        //Passa os dados para o addPost
+        mySocialMedia.addPost({ username: "Joabe", content: $campoCriaPost.value });
+        $campoCriaPost.value = "";
     }
 })
 
@@ -116,18 +133,36 @@ $form.addEventListener("submit", (infoForms) => {
 const $table = document.querySelector("table");
 
 
-$table.addEventListener("click", function(infoTableEdits){
+$table.addEventListener("click", function (infoTableEdits) {
     const btnUpdate = infoTableEdits.target.classList.contains("btn-update");
-    if(btnUpdate){
+    if (btnUpdate) {
         const trUpdate = infoTableEdits.target.closest('tr');
         const idUpdate = trUpdate.getAttribute('data-id');
-        
-        mySocialMedia.updateId(idUpdate);
-        
-        
+        mySocialMedia.pegarConteudo(idUpdate);
+
+
+    };
+
+    const idPostUp = $btnSubmit.getAttribute("dataUp-id");
+    if (idPostUp != null) {
+        $form.addEventListener("submit", (infoForms) => {
+            infoForms.preventDefault();
+            const $campoUpPost = document.querySelector('input[name="upost"]');
+
+            mySocialMedia.updatePost(idPostUp, $campoUpPost.value);
+            $campoUpPost.value = "";
+
+            const linhasTable = document.querySelectorAll("table tbody tr");
+            linhasTable.forEach(tr => {
+                tr.remove();
+            });
+
+            mySocialMedia.readPosts();
+        })
+
     }
-     
-    
+
+
 });
 
 
