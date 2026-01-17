@@ -35,13 +35,13 @@ const mySocialMedia = {
         const $campoViewPost = document.querySelector(".viewContents");
         $campoViewPost.insertAdjacentHTML("afterbegin",
             `<tr data-id="${idInterno}">
-            <td>Joabe</td> 
-            <td>${dados.content}</td>
-            <td>
-                <button type="submit" class="btn-update">
+            <td class="border border-gray-500 p-2">Joabe</td> 
+            <td class="border border-gray-500 p-2">${dados.content}</td>
+            <td class="border border-gray-500 p-2">
+                <button type="submit" class="btn-update bg-blue-400 rounded text-sm font-bold w-auto h-8 px-4 text-white hover:bg-blue-500 hover:transition delay-150 duration-300 ease-in-out hover:scale-105 cursor-pointer">
                     Editar
                 </button>
-                <button type="submit" class="btn-delete">
+                <button type="submit" class="btn-delete bg-red-400 rounded text-sm font-bold w-auto h-8 px-4 text-white hover:bg-red-500 hover:transition delay-150 duration-300 ease-in-out hover:scale-105 cursor-pointer">
                     Deletar
                 </button>
             </td>

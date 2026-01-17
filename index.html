@@ -9,30 +9,35 @@
     <link rel="stylesheet" href="src/output.css">
 </head>
 
-<body>
-    <div>
-        <div class="createPost">
-            <h2 class="text-3xl">Enviar Post</h2>
-            <form action="#" id="form-post">
-                <input type="text" placeholder="Seu usuário" name = "uusre" hidden>
-                <input type="text" placeholder="Insira o seu post" name="upost">
-                <button id="btnSubmit">Enviar</button>
-                
+<body class="bg-gray-300 flex justify-center items-center w-screen h-screen">
+    <div class="bg-gray-100 rounded-2xl p-4 h-2/4">
+        <div class="createPost container">
+            <h2 class="text-3xl font-bold text-center mb-2">Enviar Post</h2>
+            <form action="#" id="form-post" class="mb-6 border-b-2 p-6 flex justify-center">
+                <input type="text" placeholder="Seu usuário" name="uusre" hidden>
+                <div>
+                    <label for="conteudoPost" class="block text-sm/6 font-medium">Crie seu Post</label>
+                    <input type="text" placeholder="Insira o seu post" name="upost" id="conteudoPost"
+                        class="bg-gray-400 rounded text-base placeholder:text-green-200 focus:outline-none w-auto h-8 p-2">
+                    <button id="btnSubmit"
+                        class="bg-green-600 rounded text-sm font-bold w-auto h-8 px-4 text-white hover:bg-green-700   hover:transition delay-150 duration-300 ease-in-out hover:scale-105 cursor-pointer">Enviar</button>
+
+                </div>
             </form>
         </div>
 
         <div class="viewPosts">
-            <table class="table-layout:fixed">
+            <table class="table-layout:fixed border-collapse border border-gray-500">
                 <thead>
                     <tr>
-                        <th>Username</th>
-                        <th>Post</th>
-                        <th>Action</th>
+                        <th class="border border-gray-500 p-2">Username</th>
+                        <th class="border border-gray-500 p-2">Post</th>
+                        <th class="border border-gray-500 p-2">Action</th>
 
                     </tr>
                 </thead>
                 <tbody class="viewContents">
-                   
+
                 </tbody>
             </table>
         </div>
