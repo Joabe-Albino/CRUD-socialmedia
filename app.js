@@ -22,7 +22,7 @@ const mySocialMedia = {
         mySocialMedia.posts.forEach(({ id, username, content }) => {
             //Percorro meu array e adiciono ele somente no HTML ao devinir o HTMLONLY como "TRUE"
             mySocialMedia.addPost({ id, username: username, content: content }, true);
-            if(content == ""){
+            if(content == " "){
                 mySocialMedia.deletePost(id);
             }
         });
