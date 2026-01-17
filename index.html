@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="app.js" defer></script>
     <title>CRUD social media</title>
+    <link rel="stylesheet" href="src/output.css">
 </head>
 
 <body>
     <div>
         <div class="createPost">
-            <h2>Enviar Post</h2>
+            <h2 class="text-3xl">Enviar Post</h2>
             <form action="#" id="form-post">
                 <input type="text" placeholder="Seu usuário" name = "uusre" hidden>
                 <input type="text" placeholder="Insira o seu post" name="upost">
@@ -21,7 +22,7 @@
         </div>
 
         <div class="viewPosts">
-            <table>
+            <table class="table-layout:fixed">
                 <thead>
                     <tr>
                         <th>Username</th>
