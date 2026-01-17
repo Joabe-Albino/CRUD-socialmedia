@@ -1,5 +1,9 @@
 const $form = document.querySelector("form#form-post");
 const $btnSubmit = document.querySelector("button#btnSubmit");
+const $btnUp = document.querySelector("button.btnup");
+
+// Deixar botão clear oculto
+$btnUp.style.display = 'none';
 
 
 
@@ -18,6 +22,9 @@ const mySocialMedia = {
         mySocialMedia.posts.forEach(({ id, username, content }) => {
             //Percorro meu array e adiciono ele somente no HTML ao devinir o HTMLONLY como "TRUE"
             mySocialMedia.addPost({ id, username: username, content: content }, true);
+            if(content == ""){
+                mySocialMedia.deletePost(id);
+            }
         });
     },
     addPost(dados, htmlOnly = false) {
@@ -74,9 +81,7 @@ const mySocialMedia = {
 
 
         // Crio o nosso botão de Clear
-        $form.insertAdjacentHTML('beforeend',
-            `<button type='button' id='btnUp' onclick=clearInput()>Clear</button>`
-        );
+        $btnUp.style.display = 'inline-block';
     },
     updatePost(id, novoConteudo) {
         // Filtro o nosso conteúdo pelo data-id que é inserido ao clicar no btn de Editar
@@ -86,8 +91,7 @@ const mySocialMedia = {
                 postAtual.content = novoConteudo;
                 $btnSubmit.removeAttribute('dataUp-id');
 
-                const btnUp = document.querySelector("button#btnUp");
-                btnUp.remove();
+                $btnUp.style.display = 'none';
             };
         });
     }
@@ -97,8 +101,7 @@ function clearInput() {
     const $inputPost = document.querySelector("input[name=upost]");
     $inputPost.value = "";
 
-    const btnUp = document.querySelector("button#btnUp");
-    btnUp.remove();
+    $btnUp.computedStyleMap.display = 'none';
 }
 
 
@@ -113,7 +116,7 @@ console.log(mySocialMedia.posts);
 $form.addEventListener("submit", (infoForms) => {
     infoForms.preventDefault();
     const $campoCriaPost = document.querySelector('input[name="upost"]');
-    if ($campoCriaPost.value == "") {
+    if ($campoCriaPost.value == "" || $campoCriaPost.value == " ") {
         alert("Preencha o post antes de enviar");
 
         // ↓Parámetro usado para criar e não atualizar↓
